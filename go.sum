@@ -51,6 +51,8 @@ github.com/beatitudes/shippy-service-vessel v0.0.0-20200916012124-197e79d386ab h
 github.com/beatitudes/shippy-service-vessel v0.0.0-20200916012124-197e79d386ab/go.mod h1:He27tjEprx1C/Tsu7g/52SQCwUdEW9w/7+o2Q6J3A1U=
 github.com/beatitudes/shippy-service-vessel v0.0.0-20200916024440-9b8d78eabf98 h1:ggGJ1bUtVNI+r4zvHDEDZSnwsK63y3nl+/3yIKVYPA4=
 github.com/beatitudes/shippy-service-vessel v0.0.0-20200916024440-9b8d78eabf98/go.mod h1:He27tjEprx1C/Tsu7g/52SQCwUdEW9w/7+o2Q6J3A1U=
+github.com/beatitudes/shippy-service-vessel v0.0.0-20200916062109-4801a06bcd00 h1:syIt/mWQXJHI93xbpkVQHHJjOiPI673O19RSVuic7KE=
+github.com/beatitudes/shippy-service-vessel v0.0.0-20200916062109-4801a06bcd00/go.mod h1:ltklvlOmd1onosjowhGqiiVoDBfmoWKoarT6MRh5llM=
 github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973/go.mod h1:Dwedo/Wpr24TaqPxmxbtue+5NUziq4I4S80YR8gNf3Q=
 github.com/beorn7/perks v1.0.0/go.mod h1:KWe93zE9D1o94FZ5RNwFwVgaQK1VOXiVxmqh+CedLV8=
 github.com/beorn7/perks v1.0.1/go.mod h1:G2ZrVWU2WbWT9wwq4/hrbKbnv/1ERSJQ0ibhJ6rlkpw=
