@@ -3,6 +3,7 @@ module github.com/beatitudes/shippy-service-consignment
 go 1.14
 
 require (
+	github.com/beatitudes/shippy-service-vessel v0.0.0-20200916012124-197e79d386ab // indirect
 	github.com/gogo/protobuf v1.2.2-0.20190723190241-65acae22fc9d // indirect
 	github.com/golang/protobuf v1.4.2
 	github.com/kr/pretty v0.2.0 // indirect

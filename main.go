@@ -6,6 +6,7 @@ import (
 	"context"
 
 	pb "github.com/beatitudes/shippy-service-consignment/proto/consignment"
+	vesselProto "github.com/beatitudes/shippy-service-vessel/proto/vessel"
 	"github.com/micro/go-micro/v2"
 )
 
@@ -32,11 +33,24 @@ func (repo *Repository) GetAll() []*pb.Consignment {
 	return repo.consigments
 }
 
-type consignmentService struct {
-	repo repository
+type vesselService struct {
+	repo         repository
+	vasselClient vesselProto.VesselService
 }
 
-func (s *consignmentService) CreateConsignment(ctx context.Context, req *pb.Consignment, res *pb.Response) error {
+func (s *vesselService) CreateConsignment(ctx context.Context, req *pb.Consignment, res *pb.Response) error {
+
+	vesselResponse, err := s.vasselClient.FindAvailable(context.Background(), &vesselProto.Specification{
+		MaxWeight: req.Weight,
+		Capacity:  int32(len(req.Containers)),
+	})
+	if err != nil {
+		return err
+	}
+	log.Printf("Found vessel: %s \n", vesselResponse.Vessel.Name)
+
+	req.VesselId = vesselResponse.Vessel.Id
+
 	consignment, err := s.repo.Create(req)
 	if err != nil {
 		return err
@@ -47,7 +61,7 @@ func (s *consignmentService) CreateConsignment(ctx context.Context, req *pb.Cons
 	return nil
 }
 
-func (s *consignmentService) GetConsignments(ctx context.Context, req *pb.GetRequest, res *pb.Response) error {
+func (s *vesselService) GetConsignments(ctx context.Context, req *pb.GetRequest, res *pb.Response) error {
 	consignments := s.repo.GetAll()
 	res.Consignments = consignments
 	return nil
@@ -62,7 +76,9 @@ func main() {
 
 	service.Init()
 
-	if err := pb.RegisterShippingServiceHandler(service.Server(), &consignmentService{repo}); err != nil {
+	vesselClient := vesselProto.NewVesselService("shippy.service.vessel", service.Client())
+
+	if err := pb.RegisterShippingServiceHandler(service.Server(), &vesselService{repo, vesselClient}); err != nil {
 		log.Panic(err)
 	}
 
