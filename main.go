@@ -1,9 +1,9 @@
 package main
 
 import (
-	"log"
-
 	"context"
+	"log"
+	"sync"
 
 	pb "github.com/beatitudes/shippy-service-consignment/proto/consignment"
 	vesselProto "github.com/beatitudes/shippy-service-vessel/proto/vessel"
@@ -20,12 +20,15 @@ type repository interface {
 }
 
 type Repository struct {
+	mu          sync.RWMutex
 	consigments []*pb.Consignment
 }
 
 func (repo *Repository) Create(consignment *pb.Consignment) (*pb.Consignment, error) {
+	repo.mu.Lock()
 	updated := append(repo.consigments, consignment)
 	repo.consigments = updated
+	repo.mu.Unlock()
 	return consignment, nil
 }
 
