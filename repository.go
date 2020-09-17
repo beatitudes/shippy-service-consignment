@@ -102,11 +102,11 @@ func (repository *MongoRepository) GetAll(ctx context.Context) ([]*Consignment, 
 	cur, err := repository.collection.Find(ctx, nil, nil)
 	var consignments []*Consignment
 	for cur.Next(ctx) {
-		var consignment *Consignment
+		var consignment Consignment
 		if err := cur.Decode(&consignment); err != nil {
 			return nil, err
 		}
-		consignments = append(consignments, consignment)
+		consignments = append(consignments, &consignment)
 	}
 	return consignments, err
 }
